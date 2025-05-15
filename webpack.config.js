@@ -1,33 +1,34 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-export default {
-  entry: './src/index.ts',
+module.exports = {
+  entry: './src/main.ts',
   module: {
     rules: [
       {
-        test: /\.tsx?$/,
+        test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
-    ],
+      {
+        test: /\.json$/,
+        type: 'json'
+      }
+    ]
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.ts', '.js', '.json']
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
+    clean: true
   },
+  devtool: 'source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, 'public'),
+      directory: path.join(__dirname, 'public')
     },
-    host: 'localhost',
-    port: 8080,
-    hot: false,
-  },
+    compress: true,
+    port: 8080
+  }
 };
