@@ -2,28 +2,60 @@ import { store } from '../store/GlobalState';
 
 class PlantForm extends HTMLElement {
   connectedCallback() {
-    const id = this.getAttribute('data-id')!;
-    const plant = store.getState().plants.find((p) => p.id === id)!;
+    const id = this.getAttribute('data-id') || '';
+    const commonName = this.getAttribute('data-name') || '';
+    const scientificName = this.getAttribute('data-species') || '';
+    const imageUrl = this.getAttribute('data-image') || '';
+
     this.innerHTML = `
-      <form>
-        <input name="commonName" value="${plant.commonName}" />
-        <input name="scientificName" value="${plant.scientificName}" />
-        <input name="imageUrl" value="${plant.imageUrl}" />
-        <button>Guardar</button>
-      </form>
+      <div class="plant-form">
+        <img src="${imageUrl}" alt="Preview" class="preview-img" />
+        <form>
+          <label>Nombre común de la planta</label>
+          <input type="text" name="common" value="${commonName}" />
+
+          <label>Nombre científico de la planta</label>
+          <input type="text" name="scientific" value="${scientificName}" />
+
+          <label>URL de la imagen</label>
+          <input type="text" name="image" value="${imageUrl}" />
+
+          <div class="form-buttons">
+            <button type="button" id="cancel">Cancelar</button>
+            <button type="submit">Guardar</button>
+          </div>
+        </form>
+      </div>
     `;
-    this.querySelector('form')!.addEventListener('submit', async (e) => {
+
+    const imgPreview = this.querySelector('.preview-img') as HTMLImageElement;
+    const inputImage = this.querySelector('input[name="image"]') as HTMLInputElement;
+
+    inputImage?.addEventListener('input', () => {
+      imgPreview.src = inputImage.value;
+    });
+
+    this.querySelector('#cancel')?.addEventListener('click', () => {
+      this.style.display = 'none';
+    });
+
+    this.querySelector('form')?.addEventListener('submit', (e) => {
       e.preventDefault();
-      const data = new FormData(e.target as HTMLFormElement);
-      const updated = {
-        ...plant,
-        commonName: data.get('commonName')!.toString(),
-        scientificName: data.get('scientificName')!.toString(),
-        imageUrl: data.get('imageUrl')!.toString(),
-      };
-      const newPlants = store.getState().plants.map((p) => (p.id === id ? updated : p));
-      store.setState({ plants: newPlants });
+      const state = store.getState();
+      const newCommon = (this.querySelector('input[name="common"]') as HTMLInputElement).value;
+      const newScientific = (this.querySelector('input[name="scientific"]') as HTMLInputElement).value;
+      const newImage = (this.querySelector('input[name="image"]') as HTMLInputElement).value;
+
+      const updatedPlants = state.plants.map((plant) =>
+        plant.id === id ? { ...plant, commonName: newCommon, scientificName: newScientific, imageUrl: newImage } : plant
+      );
+
+      store.setState({ plants: updatedPlants });
+      this.style.display = 'none';
     });
   }
 }
+
 customElements.define('plant-form', PlantForm);
+export default PlantForm;
+

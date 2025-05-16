@@ -26,8 +26,5 @@ store.subscribe(() => {
   console.log(`Renderizando página: ${page}`);
 });
 
-
 const plants = loadPlants();
-store.setState({ plants }); 
-
-
+store.setState({ plants });

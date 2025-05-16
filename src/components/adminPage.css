@@ -1,0 +1,102 @@
+
+h2 {
+  color: #7d157d;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.plants-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  justify-content: center;
+  padding: 0 2rem 2rem;
+}
+
+plant-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.plant-form-content {
+  display: flex;
+  background-color: #fcecff;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 900px;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.plant-form-content img {
+  max-width: 300px;
+  border-radius: 1rem;
+}
+
+.plant-form-fields {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.plant-form-fields label {
+  font-weight: bold;
+  color: #7d157d;
+  margin-bottom: 0.5rem;
+}
+
+.plant-form-fields input {
+  padding: 0.8rem;
+  border: 2px solid #7d157d;
+  border-radius: 0.5rem;
+  width: 100%;
+}
+
+.plant-form-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.plant-form-actions button {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 1rem;
+  font-weight: bold;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+button.cancel {
+  background-color: transparent;
+  border: 2px solid #7d157d;
+  color: #7d157d;
+}
+
+button.save {
+  background-color: #7d157d;
+  color: white;
+}
+
+plant-card button {
+  display: none !important;
+}
+
+body[data-page="garden"] plant-card[data-mode="add"] button,
+body[data-page="garden"] plant-card[data-mode="remove"] button {
+  display: block !important;
+}
