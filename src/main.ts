@@ -1,31 +1,33 @@
+import './components/HomePage';
+import './components/GardenPage';
+import './components/AdminPage';
 import { store } from './store/GlobalState';
 import { loadPlants } from './data/plantLoader';
-import './components/HomePage';
-import './components/AdminPage';
-import './components/GardenPage';
 
-async function init() {
-  const plants = await loadPlants();
-  store.setState({ plants });
+const root = document.getElementById('root');
 
-  const root = document.getElementById('root')!;
+store.subscribe(() => {
+  const { page } = store.getState();
 
-  function render() {
-    root.innerHTML = '';
-    const page = store.getState().page;
-    const el = document.createElement(`${page}-page`);
-    root.appendChild(el);
+  if (root) {
+    switch (page) {
+      case 'home':
+        root.innerHTML = '<home-page></home-page>';
+        break;
+      case 'garden':
+        root.innerHTML = '<garden-page></garden-page>';
+        break;
+      case 'admin':
+        root.innerHTML = '<admin-page></admin-page>';
+        break;
+    }
   }
 
-  store.subscribe(render);
-  render();
+  console.log(`Renderizando página: ${page}`);
+});
 
-  document.getElementById('nav')!.addEventListener('click', (e) => {
-    const target = e.target as HTMLElement;
-    if (target.tagName === 'BUTTON') {
-      store.setState({ page: target.dataset.page as any });
-    }
-  });
-}
 
-init();
+const plants = loadPlants();
+store.setState({ plants }); 
+
+

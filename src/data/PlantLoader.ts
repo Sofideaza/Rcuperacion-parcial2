@@ -1,16 +1,28 @@
-import plants from './assets/plants.json';
-import { Plant } from '../store/GlobalState';
+import plantsData from './assets/plants.json';
 
-export async function loadPlants(): Promise<Plant[]> {
-  return plants.map((item, index) => ({
-    id: index.toString(),
-    commonName: item.common_name,
-    scientificName: item.scientific_name,
-    imageUrl: item.img,
-    type: item.type,
-    origin: item.origin,
-    floweringSeason: item.flowering_season,
-    sunExposure: item.sun_exposure,
-    watering: item.watering
-  }));
+export interface Plant {
+  id: string;
+  commonName: string;
+  scientificName: string;
+  imageUrl: string;
+  type: string;
+  origin: string;
+  floweringSeason: string;
+  sunExposure: string;
+  watering: string;
 }
+
+export const loadPlants = (): Plant[] => {
+  return plantsData.map((p, index) => ({
+    id: String(index), // Generamos un ID basado en el índice
+    commonName: p.common_name,
+    scientificName: p.scientific_name,
+    imageUrl: p.img,
+    type: p.type,
+    origin: p.origin,
+    floweringSeason: p.flowering_season,
+    sunExposure: p.sun_exposure,
+    watering: p.watering,
+  }));
+};
+

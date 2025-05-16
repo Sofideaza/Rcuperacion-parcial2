@@ -4,7 +4,16 @@ import './NavBar';
 
 class HomePage extends HTMLElement {
   connectedCallback() {
+    store.subscribe(() => this.render());
+    this.render();
+  }
+
+  render() {
     const { plants, garden, page } = store.getState();
+
+    const gardenPlants = plants
+      .filter(p => garden.includes(p.id))
+      .sort((a, b) => a.commonName.localeCompare(b.commonName));
 
     this.innerHTML = `
       <nav-bar active="${page}"></nav-bar>
@@ -17,23 +26,20 @@ class HomePage extends HTMLElement {
       <section id="garden-section">
         <h2>¡Aquí están las plantas de tu jardín!</h2>
         <div class="plants-grid">
-          ${plants
-            .filter((p) => garden.includes(p.id))
-            .map(
-              (p) => `
-                <div class="plant-card">
-                  <img src="${p.imageUrl}" alt="${p.commonName}" />
-                  <h3>${p.commonName}</h3>
-                  <p>${p.scientificName}</p>
-                </div>
-              `
-            )
-            .join('')}
+          ${gardenPlants.map(p => `
+            <plant-card
+              data-id="${p.id}"
+              data-name="${p.commonName}"
+              data-species="${p.scientificName}"
+              data-image="${p.imageUrl}"
+            ></plant-card>
+          `).join('')}
         </div>
         <br />
         <button data-page="garden">Modificar jardín</button>
       </section>
     `;
+
     this.querySelector('.scroll-down')?.addEventListener('click', () => {
       document.getElementById('garden-section')?.scrollIntoView({ behavior: 'smooth' });
     });
@@ -48,3 +54,4 @@ class HomePage extends HTMLElement {
 }
 
 customElements.define('home-page', HomePage);
+

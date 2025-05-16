@@ -2,6 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: './src/main.ts',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'public'),
+  },
   module: {
     rules: [
       {
@@ -10,25 +14,29 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|jpe?g|gif|svg)$/i,
+        test: /\.(png|jpg|jpeg|gif|svg)$/i,
         type: 'asset/resource',
+        generator: {
+          filename: 'assets/[name][ext]',
+        },
       },
     ],
   },
   resolve: {
     extensions: ['.ts', '.js'],
   },
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-    clean: true,
-  },
   devServer: {
-    static: './public',
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
     port: 8080,
+    open: true,
   },
+  mode: 'development',
 };
+

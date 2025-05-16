@@ -9,14 +9,12 @@ export interface Plant {
   sunExposure: string;
   watering: string;
 }
-
 export interface AppState {
   plants: Plant[];
   garden: string[];
   gardenName: string;
   page: 'home' | 'admin' | 'garden';
 }
-
 class GlobalState {
   private state: AppState = {
     plants: [],
@@ -24,17 +22,16 @@ class GlobalState {
     gardenName: 'Mi Jardín Virtual',
     page: 'home',
   };
-
   private listeners: Function[] = [];
 
   subscribe(listener: Function) {
     this.listeners.push(listener);
   }
 
-  setState(newState: Partial<AppState>) {
-    this.state = { ...this.state, ...newState };
-    this.listeners.forEach((fn) => fn());
-  }
+ setState(newState: Partial<AppState>) {
+  this.state = { ...this.state, ...newState };
+  this.listeners.forEach((fn) => fn());
+}
 
   getState(): AppState {
     return this.state;

@@ -1,0 +1,23 @@
+.hero {
+  background-size: cover;
+  background-position: center;
+  padding: 3rem;
+  text-align: center;
+}
+
+.plants-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  justify-items: center;
+}
+
+.bg-light {
+  background-color: #f7f0f9;
+  padding: 2rem;
+}
+
+h2 {
+  margin-left: 2rem;
+  color: #750e84;
+}
