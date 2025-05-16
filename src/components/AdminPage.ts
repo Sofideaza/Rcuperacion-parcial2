@@ -1,54 +1,44 @@
 import { store } from '../store/GlobalState';
-import './adminPage.css';
+import '../components/PlantForm';
 
 class AdminPage extends HTMLElement {
   connectedCallback() {
+    this.render();
+    this.addEventListener('edit-plant', (e: Event) => {
+      const { id, name, species, image } = (e as CustomEvent).detail;
+      const form = document.createElement('plant-form');
+      form.setAttribute('data-id', id);
+      form.setAttribute('data-name', name);
+      form.setAttribute('data-species', species);
+      form.setAttribute('data-image', image);
+      document.body.appendChild(form);
+    });
+  }
+
+  render() {
+    const plants = store.getState().plants;
+
     this.innerHTML = `
-      <nav-bar></nav-bar>
-      <h2>Aquí puedes editar las plantas</h2>
-      <section class="plants-grid">
-        ${store
-          .getState()
-          .plants.map(
+      <h2 class="admin-title">Aquí puedes editar las plantas</h2>
+      <div class="plants-grid">
+        ${plants
+          .map(
             (p) => `
-            <plant-card
-              data-id="${p.id}"
-              data-name="${p.commonName}"
-              data-species="${p.scientificName}"
-              data-image="${p.imageUrl}"
-              data-mode="edit"
-            ></plant-card>`
+              <plant-card
+                data-id="${p.id}"
+                data-name="${p.commonName}"
+                data-species="${p.scientificName}"
+                data-image="${p.imageUrl}"
+              ></plant-card>`
           )
           .join('')}
-      </section>
-      <plant-form style="display: none;"></plant-form>
+      </div>
     `;
-
-    this.querySelectorAll('plant-card')?.forEach((card) => {
-      card.addEventListener('click', () => {
-        const id = card.getAttribute('data-id');
-        const name = card.getAttribute('data-name');
-        const species = card.getAttribute('data-species');
-        const image = card.getAttribute('data-image');
-        const form = this.querySelector('plant-form') as HTMLElement;
-
-        if (form && id && name && species && image) {
-          form.setAttribute('data-id', id);
-          form.setAttribute('data-name', name);
-          form.setAttribute('data-species', species);
-          form.setAttribute('data-image', image);
-          (form.style as CSSStyleDeclaration).display = 'flex';
-        }
-      });
-    });
-
-    store.subscribe(() => {
-      if (store.getState().page === 'admin') {
-        this.connectedCallback();
-      }
-    });
   }
 }
 
-customElements.define('admin-page', AdminPage);
+if (!customElements.get('admin-page')) {
+  customElements.define('admin-page', AdminPage);
+}
+
 export default AdminPage;

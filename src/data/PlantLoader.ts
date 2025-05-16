@@ -14,7 +14,7 @@ export interface Plant {
 
 export const loadPlants = (): Plant[] => {
   return plantsData.map((p, index) => ({
-    id: String(index), // Generamos un ID basado en el índice
+    id: String(index),
     commonName: p.common_name,
     scientificName: p.scientific_name,
     imageUrl: p.img,

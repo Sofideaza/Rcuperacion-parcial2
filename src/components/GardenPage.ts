@@ -8,7 +8,7 @@ import './gardenPage.css';
 class GardenPage extends HTMLElement {
   connectedCallback() {
     const { garden } = store.getState();
-    const plants = loadPlants();
+    const plants = store.getState().plants;
 
     const gardenPlants = plants
       .filter(p => garden.includes(p.id))
@@ -19,8 +19,6 @@ class GardenPage extends HTMLElement {
       .sort((a, b) => a.commonName.localeCompare(b.commonName));
 
     this.innerHTML = `
-      <nav-bar></nav-bar>
-
       <section class="hero" style="background-image: url('./banner.jpg');">
         <editable-garden-name></editable-garden-name>
       </section>

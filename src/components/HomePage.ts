@@ -16,8 +16,6 @@ class HomePage extends HTMLElement {
       .sort((a, b) => a.commonName.localeCompare(b.commonName));
 
     this.innerHTML = `
-      <nav-bar active="${page}"></nav-bar>
-
       <section class="hero">
         <h1>BIENVENIDO A TU JARDÍN</h1>
         <div class="scroll-down">⬇</div>

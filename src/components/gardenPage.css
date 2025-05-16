@@ -21,3 +21,13 @@ h2 {
   margin-left: 2rem;
   color: #750e84;
 }
+
+.plant-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.plant-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}

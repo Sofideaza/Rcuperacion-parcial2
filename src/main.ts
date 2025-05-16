@@ -1,24 +1,30 @@
 import './components/HomePage';
 import './components/GardenPage';
 import './components/AdminPage';
+import './components/NavBar';
+import './components/PlantForm';
 import { store } from './store/GlobalState';
 import { loadPlants } from './data/plantLoader';
 
 const root = document.getElementById('root');
+const navbar = document.createElement('nav-bar');
 
 store.subscribe(() => {
   const { page } = store.getState();
 
   if (root) {
+    root.innerHTML = '';
+    root.appendChild(navbar);
+
     switch (page) {
       case 'home':
-        root.innerHTML = '<home-page></home-page>';
+        root.appendChild(document.createElement('home-page'));
         break;
       case 'garden':
-        root.innerHTML = '<garden-page></garden-page>';
+        root.appendChild(document.createElement('garden-page'));
         break;
       case 'admin':
-        root.innerHTML = '<admin-page></admin-page>';
+        root.appendChild(document.createElement('admin-page'));
         break;
     }
   }
