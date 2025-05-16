@@ -1,0 +1,153 @@
+:root {
+  --primary-color: #8c2a8a;
+  --text-color: #4a004a;
+  --bg-light: #fafafa;
+  --white: #ffffff;
+  --font-title: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-title);
+  background-color: var(--bg-light);
+  color: var(--text-color);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 19rem;
+  background-color: var(--white);
+  border-bottom: 4px solid var(--primary-color);
+}
+
+.navbar .nav-btn {
+  font-weight: bold;
+  color: var(--primary-color);
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin: 0;
+}
+
+.navbar .nav-btn:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.navbar .nav-home {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.hero {
+  min-height: 73vh;
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+  background: url('../data/assets/fondo.jpg') no-repeat center center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero h1 {
+  font-size: 3.7rem;
+  color: var(--text-color);
+  font-weight: bold;
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--white);
+  border-radius: 1rem;
+  margin: 0 auto;
+  max-width: max-content;
+}
+
+.scroll-down {
+  position: absolute;
+  bottom: 2rem;
+  font-size: 2.5rem;
+  color: var(--white);
+  cursor: pointer;
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Garden Section */
+#garden-section {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+#garden-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.plants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.plant-card {
+  background-color: var(--white);
+  border: 2px solid var(--primary-color);
+  border-radius: 1rem;
+  overflow: hidden;
+  max-width: 240px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.plant-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.plant-card h3 {
+  margin: 0.75rem 0 0.25rem;
+  color: var(--primary-color);
+}
+
+.plant-card p {
+  margin-bottom: 1rem;
+  font-style: italic;
+  color: var(--text-color);
+}
+
+#garden-section button {
+  margin-top: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
+  padding: 0.5rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#garden-section button:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}

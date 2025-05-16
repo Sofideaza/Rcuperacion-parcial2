@@ -7,28 +7,28 @@ module.exports = {
       {
         test: /\.ts$/,
         use: 'ts-loader',
-        exclude: /node_modules/
+        exclude: /node_modules/,
       },
       {
-        test: /\.json$/,
-        type: 'json'
-      }
-    ]
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: 'asset/resource',
+      },
+    ],
   },
   resolve: {
-    extensions: ['.ts', '.js', '.json']
+    extensions: ['.ts', '.js'],
   },
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true
+    clean: true,
   },
-  devtool: 'source-map',
   devServer: {
-    static: {
-      directory: path.join(__dirname, 'public')
-    },
-    compress: true,
-    port: 8080
-  }
+    static: './public',
+    port: 8080,
+  },
 };
